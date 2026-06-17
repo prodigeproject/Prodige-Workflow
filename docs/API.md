@@ -1,5 +1,25 @@
 # API Documentation Guide
 
+**Version**: 2.0  
+**Status**: Template  
+**Last Updated**: 2024
+
+---
+
+## What Goes Here
+
+**This is a TEMPLATE for API documentation.** This file provides a comprehensive framework and examples for documenting your project's APIs. Teams should:
+
+1. **Customize this template** with your actual API specifications
+2. **Replace example endpoints** with your real endpoints
+3. **Adapt sections** based on your API type (REST, GraphQL, gRPC, etc.)
+4. **Remove this "What Goes Here" section** once you've populated real documentation
+5. **Keep documentation updated** alongside code changes
+
+**DO NOT leave this as placeholder content.** This template is meant to guide you in creating complete, useful API documentation for your specific project.
+
+---
+
 ## Purpose
 
 This guide provides a comprehensive framework for documenting APIs in your project. Well-documented APIs enable:
@@ -17,6 +37,274 @@ This guide provides a comprehensive framework for documenting APIs in your proje
 3. **Maintain consistency**: Follow the same format across all endpoints
 4. **Keep it current**: Update docs alongside code changes
 5. **Automate when possible**: Use OpenAPI/Swagger for automatic documentation generation
+
+---
+
+## API Documentation Best Practices
+
+### 1. Clarity and Completeness
+
+**DO:**
+- ✅ Use clear, descriptive endpoint names (`GET /users/{id}` not `GET /u/{i}`)
+- ✅ Explain what each endpoint does in plain language
+- ✅ Document all parameters with types, constraints, and examples
+- ✅ Specify all possible response codes and their meanings
+- ✅ Include realistic examples for requests and responses
+- ✅ Document side effects (e.g., "This endpoint also sends a notification email")
+
+**DON'T:**
+- ❌ Use jargon without explanation
+- ❌ Assume developers know your business logic
+- ❌ Leave edge cases undocumented
+- ❌ Use vague descriptions like "updates the thing"
+
+### 2. Consistency
+
+**Maintain consistency across:**
+- Naming conventions (snake_case vs camelCase)
+- Authentication methods
+- Error response formats
+- Date/time formats (prefer ISO 8601)
+- Pagination approaches
+- HTTP status codes usage
+
+**Example of consistency:**
+```json
+// Good - consistent structure across all endpoints
+{
+  "data": {...},
+  "meta": {...},
+  "errors": [...]
+}
+
+// Bad - different structures for different endpoints
+{...}  // sometimes
+{"result": {...}}  // other times
+{"response": {...}}  // inconsistent
+```
+
+### 3. Keep Documentation Close to Code
+
+**Strategies:**
+- **Inline documentation**: Use annotations/decorators in code that generate docs
+- **Single source of truth**: Generate docs from OpenAPI spec or vice versa
+- **Automated checks**: CI/CD fails if docs are out of sync
+- **Version control**: Track docs alongside code changes
+- **Code reviews**: Require doc updates with API changes
+
+### 4. Provide Multiple Examples
+
+**Include examples for:**
+- Minimal request (required fields only)
+- Complete request (all optional fields)
+- Common use cases
+- Edge cases
+- Error scenarios
+
+**Multiple language examples:**
+```bash
+# cURL
+curl -X POST https://api.example.com/v1/users \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{"name": "John"}'
+```
+
+```javascript
+// JavaScript (fetch)
+fetch('https://api.example.com/v1/users', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TOKEN',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ name: 'John' })
+});
+```
+
+```python
+# Python (requests)
+import requests
+response = requests.post(
+    'https://api.example.com/v1/users',
+    headers={'Authorization': 'Bearer TOKEN'},
+    json={'name': 'John'}
+)
+```
+
+### 5. Document the "Why" Not Just the "What"
+
+**Good documentation explains:**
+- **What**: The endpoint creates a user
+- **Why**: User creation triggers a welcome email and sets up default preferences
+- **When**: Use this endpoint when onboarding new users via signup flow
+- **Constraints**: Maximum 100 users can be created per hour per account
+
+### 6. Interactive Documentation
+
+**Benefits of interactive docs:**
+- Developers can test endpoints directly
+- Immediate feedback reduces support requests
+- Try-before-you-buy for API evaluation
+- Reduces time to first successful API call
+
+**Tools for interactive docs:**
+- Swagger UI (REST)
+- GraphQL Playground (GraphQL)
+- Postman Collections (shareable)
+- Redoc with "Try It" feature
+
+### 7. Versioning Documentation
+
+**Each API version should have:**
+- Separate documentation pages
+- Clear migration guides
+- Deprecation timelines
+- Side-by-side comparison of changes
+
+**Example structure:**
+```
+/docs/api/
+  /v1/
+    endpoints.md
+    changelog.md
+  /v2/
+    endpoints.md
+    migration-guide.md  ← Shows differences from v1
+    changelog.md
+```
+
+### 8. Security Documentation
+
+**Always document:**
+- Authentication requirements
+- Authorization scopes/permissions
+- Rate limiting policies
+- IP whitelisting (if applicable)
+- Data sensitivity levels
+- Compliance requirements (GDPR, HIPAA, etc.)
+
+**Example:**
+```markdown
+### POST /v1/users/{id}/delete
+
+⚠️ **DANGER**: This permanently deletes user data and cannot be undone.
+
+**Required Permissions**: `users:delete` scope
+**Rate Limit**: 10 deletions per hour
+**Compliance**: Logs deletion for GDPR audit trail
+**Side Effects**: 
+- Anonymizes user data in analytics
+- Sends deletion confirmation email
+- Triggers webhook: `user.deleted`
+```
+
+### 9. Error Documentation Quality
+
+**Poor error docs:**
+```
+400 - Bad Request
+```
+
+**Good error docs:**
+```markdown
+### 400 Bad Request
+
+**Causes:**
+- Invalid JSON in request body
+- Missing required fields
+- Field values fail validation
+
+**Example Response:**
+{
+  "error": "VALIDATION_ERROR",
+  "message": "Request validation failed",
+  "fields": [
+    {
+      "field": "email",
+      "error": "Must be a valid email address"
+    }
+  ]
+}
+
+**How to Fix:**
+- Validate JSON syntax before sending
+- Check all required fields are present
+- Ensure field values meet documented constraints
+```
+
+### 10. Performance Guidance
+
+**Document performance characteristics:**
+- Typical response times
+- Resource-intensive operations
+- Caching behavior
+- Pagination recommendations
+- Batch operation limits
+
+**Example:**
+```markdown
+### GET /v1/analytics/report
+
+⏱️ **Performance Note**: This endpoint aggregates large datasets and may take 10-30 seconds.
+
+**Recommendations:**
+- Use async request pattern for reports (see /v1/jobs)
+- Cache results for at least 1 hour
+- Request smaller date ranges for faster response
+- Consider using daily summary endpoints instead
+```
+
+### 11. Changelog and Migration Guides
+
+**Maintain detailed changelogs:**
+```markdown
+## Changelog
+
+### v2.1.0 (2024-01-15)
+**Added:**
+- New endpoint: `POST /v1/bulk-import`
+- Support for `?fields=` parameter to limit response size
+
+**Changed:**
+- `GET /v1/users` now returns 20 items by default (was 10)
+- Date formats now use ISO 8601 throughout
+
+**Deprecated:**
+- `/v1/user/create` - Use `/v1/users` instead (removal: 2024-07-15)
+
+**Fixed:**
+- Pagination now correctly handles empty result sets
+
+**Security:**
+- Rate limits now apply per endpoint, not globally
+```
+
+### 12. Search and Discoverability
+
+**Make docs easy to find:**
+- Clear table of contents
+- Search functionality
+- Grouped by resource type
+- Filterable by HTTP method
+- Tags/categories for organization
+
+### 13. Feedback Mechanisms
+
+**Enable documentation improvement:**
+- "Was this helpful?" buttons
+- Link to report doc issues
+- Community contributions (GitHub PRs)
+- Analytics on most-viewed pages
+- Support ticket tracking to identify doc gaps
+
+### 14. Testing Documentation
+
+**Treat docs as code:**
+- Test all code examples
+- Validate OpenAPI specs
+- Check for broken links
+- Verify response examples match actual API
+- Run automated tests against documented behavior
 
 ---
 

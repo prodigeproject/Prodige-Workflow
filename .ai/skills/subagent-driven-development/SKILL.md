@@ -33,7 +33,7 @@ This skill integrates with Prodige's multi-agent architecture:
 - **Snapshot/session system:** Parallel mode support
 - **Works WITH:** test-driven-development, verification-before-completion
 
-**Prodige is an AI Engineering OS that implements subagent-driven development as its core execution model.** This skill defines the generic workflow; Prodige provides the agent roles, runtime structure, snapshot system, and command-level integration that makes this pattern production-ready.
+**Prodige Workflow implements subagent-driven development as its core execution model.** This skill defines the generic workflow; Prodige provides the agent roles, runtime structure, snapshot system, and command-level integration that makes this pattern production-ready.
 
 ### Prodige Agent Roles
 
