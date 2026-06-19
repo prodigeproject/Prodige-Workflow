@@ -374,9 +374,15 @@ Or read [PRODIGE.md](./PRODIGE.md) for detailed guide.
 
 ## 🙏 Influences
 
+<<<<<<< HEAD
 Prodige is built in-house. Its design draws lessons from prior art across the
 AI-workflow space — beginner-friendly UX, enterprise governance, and code-quality
 discipline — but the architecture, structure, and skills here are our own work.
+=======
+- **Original Prodige** - Governance and enterprise patterns 
+- **Boris Cherny** - Creator of Claude Code, workflow philosophy, UX patterns and workflow design
+- **Karpathy Behavioral Principles** - Code quality philosophy
+>>>>>>> 13d9e05391257e6c5cac9d4324e64d88690504d6
 
 ---
 
