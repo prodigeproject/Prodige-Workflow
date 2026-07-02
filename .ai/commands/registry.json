@@ -3,170 +3,187 @@
     "/magic": {
       "workflow": "magic-orchestrator",
       "hitl": true,
-      "description": "🎯 Main entry point - auto-routes to appropriate workflow with planning and verification",
+      "description": "Main entry point - auto-routes to the appropriate workflow with planning and verification",
       "category": "primary",
-      "examples": [
-        "/magic create user authentication",
-        "/magic fix the login bug",
-        "/magic add API documentation"
-      ]
+      "examples": ["/magic create user authentication", "/magic fix the login bug", "/magic add API documentation"]
+    },
+    "/start": {
+      "workflow": "session-start",
+      "hitl": false,
+      "description": "Compatibility alias for /session-start",
+      "category": "primary",
+      "examples": ["/start"]
+    },
+    "/make": {
+      "workflow": "magic-orchestrator",
+      "hitl": true,
+      "description": "Compatibility alias for /magic; runs the same senior workflow",
+      "category": "primary",
+      "examples": ["/make a todo app with login", "/make add export to CSV"]
+    },
+    "/ship-check": {
+      "workflow": "ship-check",
+      "hitl": true,
+      "description": "Verify release readiness without executing production deployment",
+      "category": "primary",
+      "examples": ["/ship-check", "/ship-check v1.2.0"]
     },
     "/memory-init": {
       "workflow": "memory-init",
       "hitl": false,
-      "description": "🧠 Initialize / scaffold the Memory Bank for a new project",
+      "description": "Initialize or scaffold the Memory Bank for a new project",
       "category": "memory"
     },
     "/session-start": {
       "workflow": "session-start",
       "hitl": false,
-      "description": "📚 Load Memory Bank and orient to project - start every session with this",
+      "description": "Load Memory Bank and orient to project - start every session with this",
       "category": "memory"
     },
     "/session-end": {
       "workflow": "session-end",
       "hitl": false,
-      "description": "💾 Save session context to Memory Bank - end every session with this",
+      "description": "Save session context to Memory Bank - end every session with this",
       "category": "memory"
     },
     "/verify": {
       "workflow": "verification",
       "hitl": false,
-      "description": "🔍 Run automated verification (tests, lint, types, build)",
+      "description": "Run automated verification: tests, lint, types, build",
       "category": "quality"
     },
     "/test": {
       "workflow": "test",
       "hitl": false,
-      "description": "🧪 Test-Driven Development cycle (RED-GREEN-REFACTOR)",
+      "description": "Test-driven development cycle: red, green, refactor",
       "category": "quality"
     },
     "/roastme": {
       "workflow": "roastme",
       "hitl": false,
-      "description": "🔥 Self-critique to catch overcomplication, hidden assumptions, and scope creep",
+      "description": "Self-critique to catch overcomplication, hidden assumptions, and scope creep",
       "category": "quality"
     },
     "/undo": {
       "workflow": "git-undo",
       "hitl": false,
-      "description": "🔄 Revert last AI change - your safety net",
+      "description": "Revert last AI change - safety net",
       "category": "safety"
     },
     "/checkpoint": {
       "workflow": "git-checkpoint",
       "hitl": false,
-      "description": "📍 Create named save point for easy rollback",
+      "description": "Create named safe point for later rollback",
       "category": "safety"
     },
     "/rollback": {
       "workflow": "git-rollback",
       "hitl": true,
-      "description": "⏮️ Restore to previous checkpoint",
+      "description": "Preview and restore to a previous checkpoint",
       "category": "safety"
     },
     "/init": {
       "workflow": "init",
       "hitl": true,
-      "description": "🚀 Initialize project brain and structure",
+      "description": "Initialize project brain and structure",
       "category": "workflow"
     },
     "/design": {
       "workflow": "design",
       "hitl": true,
-      "description": "📐 Create or update PRD, Architecture, Implementation plan",
+      "description": "Create or update PRD, architecture, and implementation plan",
       "category": "workflow"
     },
     "/build": {
       "workflow": "build",
       "hitl": true,
-      "description": "🔨 Implement approved design",
+      "description": "Implement approved design",
       "category": "workflow"
     },
     "/fix": {
       "workflow": "fix",
       "hitl": "conditional",
-      "description": "🐛 Fix bugs or issues",
+      "description": "Fix bugs or issues",
       "category": "workflow"
     },
     "/review": {
       "workflow": "review",
       "hitl": false,
-      "description": "👀 Review code quality",
+      "description": "Review code quality",
       "category": "workflow"
     },
     "/audit": {
       "workflow": "audit",
       "hitl": false,
-      "description": "🔎 Audit repository for issues",
+      "description": "Audit repository for issues",
       "category": "workflow"
     },
     "/refactor": {
       "workflow": "refactor",
       "hitl": true,
-      "description": "♻️ Refactor code for better quality",
+      "description": "Refactor code for better quality without changing behavior",
       "category": "workflow"
     },
     "/docs": {
       "workflow": "docs",
       "hitl": "conditional",
-      "description": "📝 Update documentation",
+      "description": "Update documentation",
       "category": "workflow"
     },
     "/release": {
       "workflow": "release",
       "hitl": true,
-      "description": "🚀 Prepare release",
+      "description": "Prepare a release handoff; do not execute production deployment",
       "category": "workflow"
     },
     "/sync": {
       "workflow": "sync",
       "hitl": "conditional",
-      "description": "🔄 Sync context and state",
+      "description": "Sync context and state",
       "category": "system"
     },
     "/status": {
       "workflow": "status",
       "hitl": false,
-      "description": "📊 Check project status",
+      "description": "Check project status",
       "category": "system"
     },
     "/cache": {
       "workflow": "cache",
       "hitl": false,
-      "description": "💾 Manage cache",
+      "description": "Manage cache",
       "category": "system"
     },
     "/diagnose": {
       "workflow": "diagnose-health",
       "hitl": false,
-      "description": "🩺 Project health check (structure, context, runtime, gates, deps, debt, sync)",
+      "description": "Project health check: structure, context, runtime, gates, dependencies, debt, sync",
       "category": "system"
     },
     "/parallel": {
       "workflow": "parallel",
       "hitl": true,
-      "description": "⚡ Multi-agent planning and execution",
+      "description": "Multi-agent planning and execution",
       "category": "advanced"
     },
     "/agent": {
       "workflow": "agent-session",
       "hitl": false,
-      "description": "🤖 Single-worker agent session (focused, isolated task execution)",
+      "description": "Single-worker agent session for focused isolated task execution",
       "category": "advanced"
     }
   },
   "categories": {
     "primary": {
       "name": "Primary Commands",
-      "description": "Start here - these are the main commands you'll use"
+      "description": "Start here - main commands for most users"
     },
     "memory": {
       "name": "Memory Management",
       "description": "Session persistence and context management"
     },
     "safety": {
-      "name": "Safety & Recovery",
+      "name": "Safety and Recovery",
       "description": "Undo, checkpoint, and rollback features"
     },
     "quality": {

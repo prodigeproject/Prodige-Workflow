@@ -72,8 +72,9 @@ powershell -File install.ps1 -Tools all -Gitignore
 | Claude Code | `CLAUDE.md` | `install … claude` |
 | Gemini CLI | `GEMINI.md` | `install … gemini` |
 | GitHub Copilot | `.github/copilot-instructions.md` | `install … copilot` |
-| Cline | `.clinerules` | `install … cline` |
-| Windsurf | `.windsurfrules` | `install … windsurf` |
+| Cline | `.clinerules/prodige.md` | `install ... cline` |
+| Windsurf | `.windsurf/rules/prodige.md` + legacy `.windsurfrules` | `install ... windsurf` |
+| Devin | `.devin/rules/prodige.md` | `install ... devin` |
 | Hermes / OpenClaw / Pi / custom | system prompt | point it at `AGENTS.md` |
 
 Full details and the agentic-framework integration: [COMPATIBILITY.md](./COMPATIBILITY.md).
@@ -211,7 +212,7 @@ everyone shares the same project brain.
 ## Next steps
 
 - [COMPATIBILITY.md](./COMPATIBILITY.md) — per-tool and agentic-framework integration
-- [NEWBIE_MODE.md](./NEWBIE_MODE.md) — simplified commands for beginners
+- [PLAIN_LANGUAGE_MODE.md](./PLAIN_LANGUAGE_MODE.md) — plain-language use of the same senior workflow
 - [USAGE.md](./USAGE.md) — full workflow walkthrough
 - [HITL_REVIEW_GATES.md](./HITL_REVIEW_GATES.md) — human approval gates
 - [MULTI_WINDOW_AGENT_GUIDE.md](./MULTI_WINDOW_AGENT_GUIDE.md) — parallel agent work

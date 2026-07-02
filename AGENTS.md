@@ -48,7 +48,10 @@ Treat all of these the same as `/build login`.
 | Command | Purpose |
 |---------|---------|
 | `/session-start` | Load Memory Bank + orient (start every session) |
+| `/start` | Compatibility alias for `/session-start` |
 | `/magic <task>` | Main entry — auto-routes to the right workflow with planning + verification |
+| `/make <task>` | Compatibility alias for `/magic <task>` |
+| `/ship-check` | Release-readiness check; prepares handoff, does not deploy |
 | `/init` | Initialize project brain and structure |
 | `/design` | Create/update PRD, architecture, implementation plan |
 | `/build` | Implement approved design (TDD) |
@@ -68,7 +71,9 @@ Treat all of these the same as `/build login`.
 
 Full registry: `.ai/commands/registry.json`. Full docs per command: `.ai/commands/<name>.md`.
 
-The simplest path for any user: `/session-start` → `/magic <what you want>` → `/session-end`.
+The simplest path for every user: `/start` → `/magic <what you want>` → `/ship-check` when ready.
+
+The explicit session path remains: `/session-start` → `/magic <what you want>` → `/session-end`.
 
 ---
 
@@ -81,6 +86,8 @@ The simplest path for any user: `/session-start` → `/magic <what you want>` �
 - **Verify before claiming done** — evidence (command + output) before any "done"/"passing".
 - **Systematic debugging** — root cause before fix; after 3 failed fixes, escalate.
 - **Respect HITL gates** — do not skip required human approvals.
+- **Prevent model degeneration loops** — never output text-based progress bars, spinners, or repeating character blocks (e.g. repeating `@`, `_`, `.`, or `gantt empty` diagrams) while waiting for timers or background tasks. Write short, natural status updates instead.
+
 
 These are enforced by skills in `.ai/skills/` (notably `clean-code`,
 `test-driven-development`, `verification-before-completion`, `systematic-debugging`).

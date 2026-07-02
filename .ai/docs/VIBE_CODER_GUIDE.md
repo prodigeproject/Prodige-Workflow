@@ -5,7 +5,7 @@
 Anda tidak perlu jadi expert untuk membuat aplikasi berkualitas dengan **Prodige Workflow**.
 
 Workflow ini akan:
-- ✅ Memandu Anda step-by-step dari ide ke production
+- ✅ Memandu Anda step-by-step dari ide ke release-readiness handoff
 - ✅ Mencegah AI membuat code yang terlalu complex
 - ✅ Memastikan code yang dihasilkan simple dan maintainable
 - ✅ Meminta AI bertanya jika sesuatu tidak jelas (tidak asal nebak)
@@ -371,7 +371,7 @@ Edit sesuai kebutuhan:
                  │
                  ▼
          ┌───────────────┐
-         │   /release    │  ← Final checks, tests, deploy!
+         │ /ship-check   │  ← Final checks, tests, handoff!
          └───────────────┘
 
                  ▼
@@ -460,7 +460,7 @@ After 2-3 iterations, you'll appreciate the quality of code produced.
 
 **User:** Never coded before
 **Timeline:** 2 weeks
-**Result:** Production-ready todo app with auth, deployed to Vercel
+**Result:** Todo app with auth ready for human/CD release handoff
 
 **Quote:**
 > "I was scared at first, but AI walked me through everything. 

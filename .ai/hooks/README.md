@@ -9,8 +9,8 @@ basic format / lint / type / test checks before it lands.
 
 ## What Ships In This Folder
 
-This folder contains per-stack `pre-commit` hook templates only. There is no
-installer script and no other hook type bundled here.
+This folder contains per-stack `pre-commit` hook templates. Install one with
+`.ai/scripts/install-hook.sh` or `.ai/scripts/install-hook.ps1`, or copy manually.
 
 | File | Stack | What it runs |
 |------|-------|--------------|
@@ -25,10 +25,16 @@ on the first failing check, which blocks the commit.
 
 ---
 
-## Installation (Manual, Per Stack)
+## Installation
 
-There is no `install.sh`. Copy the template for your stack into `.git/hooks/pre-commit`
-and mark it executable. Pick the one matching your project:
+Use the installer for your stack:
+
+```bash
+bash .ai/scripts/install-hook.sh node
+powershell -ExecutionPolicy Bypass -File .ai/scripts/install-hook.ps1 -Stack node
+```
+
+Or copy manually into `.git/hooks/pre-commit` and mark it executable:
 
 ```bash
 # Node.js / TypeScript

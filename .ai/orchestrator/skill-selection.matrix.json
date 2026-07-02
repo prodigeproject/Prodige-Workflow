@@ -8,6 +8,23 @@
     "brainstorming",
     "context-sync"
   ],
+  "/make": [
+    "test-driven-development",
+    "verification-before-completion",
+    "repomap",
+    "brainstorming",
+    "implementation-planning",
+    "roastme",
+    "memory-search"
+  ],
+  "/ship-check": [
+    "verification-before-completion",
+    "finishing-a-development-branch",
+    "documentation",
+    "security-review",
+    "debt-detection",
+    "context-sync"
+  ],
   "/design": [
     "repomap",
     "roastme",

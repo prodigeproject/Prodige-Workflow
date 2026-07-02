@@ -51,7 +51,12 @@ Invoke the **memory-manager** agent to execute session end protocol:
    - What was preserved
    - Memory bank health status
 
-5. **Perform maintenance / compaction (canonical policy)**:
+5. **Record outcome for continuous improvement**:
+   - If MCP is available, call `record_outcome` with command, status, summary, and verification evidence.
+   - If MCP is unavailable, append an equivalent JSONL row to `.ai/runtime/outcomes.jsonl`.
+   - Include failed commands and skipped verification honestly; do not record only successes.
+
+6. **Perform maintenance / compaction (canonical policy)**:
    - **Trigger:** runs at `/session-end` (and `/sync`), **guarded by size** — only compact when a file is large (~5000 tokens / ~50KB).
    - **`sessionHistory.md`:** keep a rolling **30-day** window; move older entries to `.ai/memory/archive/sessionHistory-<YYYY-Qn>.md`. **Keep their index rows** in `index.md`, but repoint each row's source to `archive/...`.
    - **`conventions.md`:** soft cap of ~50 patterns; prune/merge beyond that.

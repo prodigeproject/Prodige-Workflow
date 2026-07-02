@@ -1,0 +1,13 @@
+---
+description: Prodige Workflow project rules
+alwaysApply: true
+---
+
+# Prodige Workflow Pointer
+
+Read and follow `AGENTS.md` before taking action. Then load `.ai/boot/BOOT.md`,
+`.ai/SOUL.md`, `.ai/orchestrator/ORCHESTRATOR.md`, and `.ai/skills/manifest.json`.
+
+Route `/command` messages through `.ai/commands/registry.json`. Use the Prodige
+MCP server (`node .ai/scripts/prodige-mcp.js`) when available for context,
+locks, gates, and next-action suggestions.

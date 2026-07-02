@@ -248,7 +248,7 @@ Monitoring:
 ```
 
 ### AI Must Ask
-- "Is this safe to deploy to production?"
+- "Is this safe for production release handoff?"
 - "What happens if we need to roll back?"
 - "Who needs to know about this release?"
 
@@ -262,7 +262,7 @@ You don't need to understand all technical details. Just ensure AI **stops and e
 2. **Architecture Gate**: "Here's how I'll build it. Does this make sense?"
 3. **Implementation Gate**: "Here's my plan. Should I proceed?"
 4. **Review Gate**: "Here's what I built. Does it work correctly?"
-5. **Release Gate**: "Here's how we'll release. Ready to deploy?"
+5. **Release Gate**: "Here's the release handoff. Ready for human/CD deployment review?"
 
 **Always say "wait" if you're unsure.** It's better to ask questions than to approve blindly.
 

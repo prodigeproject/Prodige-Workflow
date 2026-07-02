@@ -13,6 +13,14 @@
       "required": ["repomap", "reality-check", "documentation"],
       "optional": ["brainstorming", "context-sync"]
     },
+    "/make": {
+      "required": ["test-driven-development", "verification-before-completion", "repomap"],
+      "optional": ["brainstorming", "implementation-planning", "roastme", "memory-search"]
+    },
+    "/ship-check": {
+      "required": ["verification-before-completion", "finishing-a-development-branch", "documentation"],
+      "optional": ["security-review", "debt-detection", "context-sync"]
+    },
     "/design": {
       "required": ["repomap", "roastme", "reality-check"],
       "optional": ["brainstorming", "implementation-planning", "memory-search", "grill-with-docs"]

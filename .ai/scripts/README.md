@@ -12,6 +12,8 @@ Unix/Git Bash, `.ps1` for Windows PowerShell, `.js` for Node (any OS).
 | `update-review-patterns.js` | Fold review findings into the learning store | a review report `.md` | `.ai/memory/review-patterns.json` | review-learning post-review step (after each review) |
 | `generate-review-metrics.js` | Aggregate review reports into trends & action items | `.ai/reports/reviews/*.md` (skips `pre-review-*`/`security-scan-*`) | `.ai/reports/metrics/review-metrics-<date>.md` | review-learning post-review step + weekly |
 | `calibrate-reviewer.js` | Score reviewer accuracy vs labeled cases | `.ai/training/review-cases/cases/<case>/{expected.json,actual.md}` | `.ai/training/review-cases/results/calibration-<date>.json` | manual / on reviewer-skill change |
+| `suggest-next-action.js` | Recommend the next Prodige command from state and intent | optional intent string; git status; context files | JSON recommendation | `/start`, `/make`, MCP `suggest_next_action` |
+| `install-hook.{sh,ps1}` | Install one pre-commit template | stack name (`node`, `python`, `rust`, `go`) | `.git/hooks/pre-commit` | manual setup |
 
 ### Canonical theme taxonomy (shared)
 

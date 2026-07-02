@@ -611,6 +611,8 @@ Every agent (architect, backend, frontend, qa, reviewer) should:
 3. Skip critical context
 4. Write essays for simple questions
 5. Be condescending or robotic
+6. Output text-based progress bars, character loops, or visual spinners (e.g. repeating `@`, `_`, `.`, or `gantt empty` blocks) while waiting for timers or background tasks. Doing so triggers autoregressive model degeneration loops and wastes tokens. Write short, natural status updates instead.
+
 
 ### 📏 Length Targets
 - Simple: 1-3 lines

@@ -4,6 +4,11 @@
 **Last Updated:** 2024  
 **Status:** Template Document
 
+> **Prodige boundary:** This template is for human/CD handoff documentation only.
+> Prodige agents must not execute production deployment commands, trigger
+> production pipelines, apply infrastructure, manage production secrets, or
+> mutate live production systems. See `.ai/boundaries/no-production-deploys.md`.
+
 ---
 
 ## 🎯 What Goes Here
@@ -274,7 +279,7 @@ docker tag myapp:v1.2.3 registry.company.com/myapp:latest
 docker push registry.company.com/myapp:v1.2.3
 docker push registry.company.com/myapp:latest
 
-# 4. Deploy to production
+# 4. Human/CD deploy to production
 docker pull registry.company.com/myapp:v1.2.3
 docker stop myapp || true
 docker rm myapp || true
@@ -576,7 +581,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Deploy to production
+      - name: Human/CD deploy to production
         run: |
           # Production deployment commands
 ```
@@ -677,7 +682,7 @@ pipeline {
                 tag "v*"
             }
             steps {
-                input message: 'Deploy to production?'
+                input message: 'Human/CD deploy to production?'
                 sh "kubectl set image deployment/myapp myapp=${DOCKER_IMAGE}:${BUILD_NUMBER} -n production"
             }
         }
@@ -2191,7 +2196,8 @@ ORDER BY idx_scan ASC;
 
 ## Deployment Checklist
 
-Use this checklist for every production deployment:
+Use this checklist for human/CD-managed production deployments. Prodige may
+prepare this checklist but must not execute deployment steps.
 
 ### Pre-Deployment (T-24 hours)
 
@@ -2213,7 +2219,7 @@ Use this checklist for every production deployment:
 - [ ] Database backup completed
 - [ ] Pre-deployment health check passed
 - [ ] Code freeze in effect
-- [ ] Deploy to production initiated
+- [ ] Human/CD pipeline initiated production deployment
 - [ ] Deployment progress monitored
 - [ ] Application restarted/rolled out
 - [ ] Health checks passing

@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
 # Wire up the Prodige Workflow for one or more AI coding tools.
 #
-# Prodige's single source of truth is AGENTS.md + the .ai/ directory. Many tools read
-# AGENTS.md natively (Codex, opencode, Cursor, Zed, Jules, RooCode, most agentic frameworks)
-# and need NO install. This script only drops the thin pointer file that tools with their own
-# instruction filename expect. Every pointer just redirects to AGENTS.md — never a second copy.
+# Single source of truth: AGENTS.md + .ai/.
+# Many tools read AGENTS.md natively; these pointers improve recall for tools
+# that prefer their own rule locations. They are not a hard runtime sandbox.
 #
 # Usage:
 #   ./install.sh [tools] [--gitignore]
-#     tools: comma-separated (claude,gemini,copilot,cursor,cline,windsurf) or "all" (default)
-# Examples:
-#   ./install.sh claude,cursor
-#   ./install.sh all --gitignore
+#     tools: comma-separated (claude,gemini,copilot,cursor,cline,windsurf,devin)
+#            or "all" (default)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [ -f "$ROOT/AGENTS.md" ] || { echo "AGENTS.md not found in $ROOT. Run from the Prodige Workflow root." >&2; exit 1; }
 
-TOOLS="all"; GITIGNORE=0
+TOOLS="all"
+GITIGNORE=0
 for arg in "$@"; do
   case "$arg" in
     --gitignore) GITIGNORE=1 ;;
@@ -26,49 +24,54 @@ for arg in "$@"; do
 done
 
 read -r -d '' POINTER <<'EOF' || true
-# PRODIGE WORKFLOW ENFORCEMENT PROTOCOL (MANDATORY SYSTEM RULE)
+# PRODIGE WORKFLOW POINTER
 
 You are operating inside a codebase governed by the Prodige Workflow.
-Before responding to any user query or taking any action, you MUST immediately:
-1. Read the universal entry point file: `./AGENTS.md`
-2. Read the mandatory startup sequence: `./.ai/boot/BOOT.md`
-3. Adopt the Magic Orchestrator role defined in `./.ai/agents/magic-orchestrator.md`
+Before responding to any user query or taking any action, read and follow:
+1. `./AGENTS.md`
+2. `./.ai/boot/BOOT.md`
+3. `./.ai/commands/registry.json`
 
-CRITICAL BOUNDARIES:
-- DO NOT edit any files or write code before reading the context and generating an execution plan.
-- All code modifications must strictly follow TDD (Test-Driven Development) and Surgical Changes.
-- Never write credentials/secrets.
-- This is a system-level constraint. Failure to read AGENTS.md first will violate the runtime environment check.
+Use `node .ai/scripts/prodige-mcp.js` when MCP tools are available.
+Do not edit code before loading context, planning, and respecting HITL gates.
 EOF
 
-NATIVE="codex, opencode, zed, jules, roo, factory and most agentic frameworks read AGENTS.md natively (no pointer needed)."
+NATIVE="Codex, opencode, RooCode, Devin, Windsurf, and many agentic frameworks can read AGENTS.md natively; pointers improve recall but are not hard enforcement."
 
-pointer_path() {
+pointer_paths() {
   case "$1" in
     claude)   echo "CLAUDE.md" ;;
     gemini)   echo "GEMINI.md" ;;
     copilot)  echo ".github/copilot-instructions.md" ;;
-    cursor)   echo ".cursorrules" ;;
-    cline)    echo ".clinerules" ;;
-    windsurf) echo ".windsurfrules" ;;
+    cursor)   echo ".cursor/rules/prodige.mdc .cursorrules" ;;
+    cline)    echo ".clinerules/prodige.md" ;;
+    windsurf) echo ".windsurf/rules/prodige.md .windsurfrules" ;;
+    devin)    echo ".devin/rules/prodige.md" ;;
     *)        echo "" ;;
   esac
 }
 
 if [ "$TOOLS" = "all" ]; then
-  SELECTED="claude gemini copilot cursor cline windsurf"
+  SELECTED="claude gemini copilot cursor cline windsurf devin"
 else
   SELECTED="$(echo "$TOOLS" | tr ',' ' ')"
 fi
 
 CREATED=()
 for t in $SELECTED; do
-  rel="$(pointer_path "$(echo "$t" | tr '[:upper:]' '[:lower:]')")"
-  if [ -z "$rel" ]; then echo "Unknown/native tool '$t' (skipped). $NATIVE" >&2; continue; fi
-  mkdir -p "$(dirname "$ROOT/$rel")"
-  printf '%s\n' "$POINTER" > "$ROOT/$rel"
-  CREATED+=("$rel")
-  echo "  + $rel -> AGENTS.md"
+  rels="$(pointer_paths "$(echo "$t" | tr '[:upper:]' '[:lower:]')")"
+  if [ -z "$rels" ]; then
+    echo "Unknown/native tool '$t' (skipped). $NATIVE" >&2
+    continue
+  fi
+  for rel in $rels; do
+    dir="$(dirname "$ROOT/$rel")"
+    if [ -f "$dir" ]; then mv "$dir" "$dir.legacy"; fi
+    mkdir -p "$dir"
+    printf '%s\n' "$POINTER" > "$ROOT/$rel"
+    CREATED+=("$rel")
+    echo "  + $rel -> AGENTS.md"
+  done
 done
 
 if [ "$GITIGNORE" -eq 1 ] && [ "${#CREATED[@]}" -gt 0 ]; then

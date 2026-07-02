@@ -13,7 +13,7 @@
 11. Update CHANGELOG.md for user-facing changes.
 12. Update DECISIONS.md if architectural choices are documented.
 13. Run verification checks if applicable.
-14. Self-check: beginner-friendly, examples work, quick start exists.
+14. Self-check: plain-language, examples work, quick start exists.
 15. Request review if major documentation changes.
 16. Update memory bank and handoff.
 

@@ -157,10 +157,17 @@ Create workflow in `.ai/workflows/my-workflow.md`
 - `/parallel` - Coordinate multi-agent work
 
 ### Development
-- Coming: `/dev`, `/test`, `/deploy`
+- `/magic` - Auto-route normal work
+- `/make` - Compatibility alias for `/magic`
+- `/design` - Plan feature/product changes
+- `/build` - Implement approved design
+- `/test` - TDD cycle
+- `/verify` - Quality gate
 
 ### Documentation
-- Coming: `/docs`, `/readme`
+- `/docs` - Update documentation
+- `/release` - Prepare release handoff
+- `/ship-check` - Release-readiness check without production deployment
 
 ## Error Handling
 
@@ -331,8 +338,8 @@ All command documentation must include:
 ## Version History
 
 - v1.0.0 - Initial command set: init, cache, sync, parallel
-- v1.1.0 - Coming: dev, test, deploy commands
-- v1.2.0 - Coming: docs, readme generation commands
+- v1.1.0 - Added test, verify, docs, release, and safety commands
+- v1.2.0 - Added `/start` as a `/session-start` alias, `/make` as a `/magic` alias, and `/ship-check`
 
 ## Support
 

@@ -205,32 +205,20 @@ Impact: [what parts of system are affected]
 
 **Key principle:** Modular, incremental implementation. Each step should be independently testable.
 
-### 6. Run RTK (Rust Token Killer)
+### 6. Run Context Efficiency Review
 
-**Execute RTK analysis:**
+Review design documents for token efficiency without requiring an external binary.
 
-RTK is a token optimization tool that helps manage context efficiently.
-
-**Run RTK commands:**
-```bash
-rtk analyze design
-```
-
-**RTK checks:**
-- Token efficiency of design documents
-- Context size optimization
-- Redundancy detection
-- Compression opportunities
+**Checks:**
+- Remove duplicate sections and repeated rationale
+- Keep requirements specific and testable
+- Replace verbose prose with concise bullets where appropriate
+- Keep essential constraints, risks, and acceptance criteria intact
+- Link to existing context instead of copying large sections
 
 **Purpose:** Ensure design documents are concise and token-efficient without losing essential information.
 
-**If RTK suggests optimizations:**
-- Review suggestions
-- Simplify verbose sections
-- Remove redundancy
-- Keep essential information
-
-**Skill:** Token efficiency and conciseness
+**Skill:** Efficient communication and context hygiene
 
 ### 7. Run RoastMe
 
@@ -400,7 +388,7 @@ Write a concise summary explaining:
 **If revisions requested:**
 - Return to relevant step (PRD, Architecture, or Implementation)
 - Address feedback
-- Re-run RTK and RoastMe
+- Re-run context efficiency review and RoastMe
 - Re-submit for approval
 
 **If rejected:**
@@ -456,7 +444,7 @@ Next workflow: `/build` (implementation)
 
 **Commands:**
 - `/roastme design` - Design critique (Step 7)
-- `rtk analyze design` - Token optimization (Step 6)
+- Context efficiency review - Token/context optimization (Step 6)
 
 **Workflows:**
 - **Next:** `/build` - Implementation workflow (after design approval)
@@ -465,7 +453,7 @@ Next workflow: `/build` (implementation)
 - **Related:** `/audit` - Validate design decisions
 
 **Tools:**
-- RTK (Rust Token Killer) - Context optimization
+- Built-in context efficiency review - Context optimization
 
 ---
 

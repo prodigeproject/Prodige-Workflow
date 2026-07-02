@@ -3,15 +3,15 @@
   Wire up the Prodige Workflow for one or more AI coding tools.
 
   Prodige's single source of truth is AGENTS.md + the .ai/ directory. Many tools already
-  read AGENTS.md natively (Codex, opencode, Cursor, Zed, Jules, RooCode, most agentic
-  frameworks) and need NO install. This script only creates the thin pointer file that
-  tools with their own instruction filename expect. Every pointer just redirects to AGENTS.md,
-  so there is never a second copy to keep in sync.
+  read AGENTS.md natively (Codex, opencode, RooCode, Devin, Windsurf, and many
+  agentic frameworks) and need NO install. This script creates thin pointer files
+  for tools/editors that prefer their own rule locations. Every pointer redirects
+  to AGENTS.md, so there is never a second copy to keep in sync.
 
 .PARAMETER Tools
   Comma-separated tool names, or "all". Supported:
-    claude, gemini, copilot, cursor, cline, windsurf
-  (codex, opencode, zed, jules, roo read AGENTS.md natively.)
+    claude, gemini, copilot, cursor, cline, windsurf, devin
+  (codex, opencode, roo, devin, windsurf may also read AGENTS.md natively.)
 
 .PARAMETER Gitignore
   Also add generated pointer files to .gitignore (keeps the repo footprint minimal).
@@ -50,28 +50,33 @@ CRITICAL BOUNDARIES:
 
 # tool -> relative pointer path
 $map = @{
-  claude   = "CLAUDE.md"
-  gemini   = "GEMINI.md"
-  copilot  = ".github/copilot-instructions.md"
-  cursor   = ".cursorrules"
-  cline    = ".clinerules"
-  windsurf = ".windsurfrules"
+  claude   = @("CLAUDE.md")
+  gemini   = @("GEMINI.md")
+  copilot  = @(".github/copilot-instructions.md")
+  cursor   = @(".cursor/rules/prodige.mdc", ".cursorrules")
+  cline    = @(".clinerules/prodige.md")
+  windsurf = @(".windsurf/rules/prodige.md", ".windsurfrules")
+  devin    = @(".devin/rules/prodige.md")
 }
 
-$native = "codex, opencode, zed, jules, roo, factory and most agentic frameworks read AGENTS.md natively (no pointer needed)."
+$native = "Codex, opencode, RooCode, Devin, Windsurf, and many agentic frameworks can read AGENTS.md natively; pointers improve recall but are not hard enforcement."
 
 $selected = if ($Tools -eq 'all') { $map.Keys } else { $Tools.Split(',') | ForEach-Object { $_.Trim().ToLower() } }
 
 $created = New-Object System.Collections.Generic.List[string]
 foreach ($t in $selected) {
   if (-not $map.ContainsKey($t)) { Write-Warning "Unknown/native tool '$t' (skipped). $native"; continue }
-  $rel = $map[$t]
-  $full = Join-Path $root $rel
-  $dir = Split-Path -Parent $full
-  if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
-  Set-Content -Path $full -Value $pointer -NoNewline
-  $created.Add($rel)
-  Write-Host "  + $rel -> AGENTS.md"
+  foreach ($rel in $map[$t]) {
+    $full = Join-Path $root $rel
+    $dir = Split-Path -Parent $full
+    if ($dir -and (Test-Path $dir -PathType Leaf)) {
+      Move-Item -Path $dir -Destination ($dir + ".legacy") -Force
+    }
+    if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+    Set-Content -Path $full -Value $pointer -NoNewline
+    $created.Add($rel)
+    Write-Host "  + $rel -> AGENTS.md"
+  }
 }
 
 if ($Gitignore -and $created.Count -gt 0) {

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This comprehensive guide explains how to use **Prodige Workflow** from initial setup through production deployment. Whether you're building a new project or improving an existing one, this guide covers the complete workflow.
+This comprehensive guide explains how to use **Prodige Workflow** from initial setup through release readiness and human/CD handoff. Prodige does not execute production deployment.
 
 ---
 
@@ -938,7 +938,7 @@ AI:
 
 Then:
 ```bash
-/release deploy [feature]
+/ship-check [feature]
 ```
 
 ---
@@ -1032,7 +1032,7 @@ Then:
 - `/fix [bug]` - Fix bugs
 - `/audit` - Check code quality
 - `/review` - Review changes
-- `/release` - Deploy to production
+- `/release` - Prepare release handoff; does not deploy to production
 
 **Workflow**:
 1. Initialize → 2. Design (3 gates) → 3. Build → 4. Review → 5. Release
